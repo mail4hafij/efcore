@@ -25,9 +25,12 @@ namespace src.db
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connecitonString  = _configuration.GetConnectionString("dbConnectionString");
+            // Allow the hardcoded connectionString when adding/updating migration
+            // var connectionString = "Data Source=.;Initial Catalog=efcore;Integrated Security=true;";
 
-            optionsBuilder.UseSqlServer(connecitonString);
+            var connectionString  = _configuration.GetConnectionString("dbConnectionString");
+            
+            optionsBuilder.UseSqlServer(connectionString);
             base.OnConfiguring(optionsBuilder);
         }
         
