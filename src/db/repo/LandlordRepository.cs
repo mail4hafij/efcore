@@ -17,12 +17,12 @@ namespace src.db.repo
 
         public async Task Add(Landlord landlord)
         {
-            await _context.Landlord.AddAsync(landlord);
+            await _context.Landlords.AddAsync(landlord);
         }
 
         public LandlordContract GetLandlord()
         {
-            var landlord = _context.Landlord.First<Landlord>();
+            var landlord = _context.Landlords.First<Landlord>();
             return _landlordMapper.Map(landlord);
         }
 

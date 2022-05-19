@@ -13,10 +13,10 @@ namespace src.db
         /// Comment out the following constructor when adding/updating migration
         /// </summary>
         /// <param name="configuration"></param>
-        public DataContext(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
+        //public DataContext(IConfiguration configuration)
+        //{
+        //    _configuration = configuration;
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,14 +26,14 @@ namespace src.db
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Allow the hardcoded connectionString when adding/updating migration
-            // var connectionString = "Data Source=.;Initial Catalog=efcore;Integrated Security=true;";
+            var connectionString = "Data Source=.;Initial Catalog=efcore;Integrated Security=true;";
 
-            var connectionString  = _configuration.GetConnectionString("dbConnectionString");
+            //var connectionString  = _configuration.GetConnectionString("dbConnectionString");
             
             optionsBuilder.UseSqlServer(connectionString);
             base.OnConfiguring(optionsBuilder);
         }
         
-        public DbSet<Landlord> Landlord { get; set; }
+        public DbSet<Landlord> Landlords { get; set; }
     }
 }
