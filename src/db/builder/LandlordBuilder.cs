@@ -8,7 +8,7 @@ namespace src.db.builder
     {
         public void Configure(EntityTypeBuilder<Landlord> builder)
         {
-            builder.ToTable("Landlord");
+            builder.ToTable("Landlords");
             builder.Property(p => p.LandlordId);
             builder.Property(p => p.Name);
 
