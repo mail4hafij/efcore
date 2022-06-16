@@ -1,9 +1,9 @@
-﻿
+﻿using Microsoft.EntityFrameworkCore.Storage;
+
 namespace src.db
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork
     {
-        Task<bool> Commit();
-        Task Rollback();
+        IDbContextTransaction BeginTransaction();
     }
 }

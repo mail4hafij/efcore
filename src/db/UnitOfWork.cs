@@ -1,4 +1,5 @@
-﻿
+﻿using Microsoft.EntityFrameworkCore.Storage;
+
 namespace src.db
 {
     public class UnitOfWork : IUnitOfWork
@@ -7,16 +8,9 @@ namespace src.db
 
         public UnitOfWork(DataContext context) => _context = context;
 
-        public async Task<bool> Commit()
+        public IDbContextTransaction BeginTransaction()
         {
-            return (await _context.SaveChangesAsync()) > 0;
-        }
-
-        public void Dispose() => _context.Dispose();
-
-        public Task Rollback()
-        {
-            return Task.CompletedTask;
+            return _context.Database.BeginTransaction();
         }
     }
 }

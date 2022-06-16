@@ -21,17 +21,20 @@ namespace web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            try
+            using (var transaction = _unitOfWork.BeginTransaction())
             {
-                await _landlordRepository.Add(new src.db.data.model.Landlord("BRF stockholm"));
-                await _unitOfWork.Commit();
-
-                var landlord = _landlordRepository.GetLandlord();
-            }  
-            catch (Exception ex)
-            {
-                await _unitOfWork.Rollback();
+                try
+                {
+                    await _landlordRepository.Add(new src.db.data.model.Landlord("BRF stockholm"));
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    // Auto rollback
+                }           
             }
+
+            var landlord = _landlordRepository.GetLandlord();
             return View();
         }
 

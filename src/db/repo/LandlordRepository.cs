@@ -18,23 +18,13 @@ namespace src.db.repo
         public async Task Add(Landlord landlord)
         {
             await _context.Landlords.AddAsync(landlord);
+            _context.SaveChanges();
         }
 
         public LandlordContract GetLandlord()
         {
             var landlord = _context.Landlords.First<Landlord>();
             return _landlordMapper.Map(landlord);
-        }
-
-        private bool _disposed = false;
-
-        ~LandlordRepository() => Dispose();
-
-        public void Dispose()
-        {
-            if (!_disposed)
-                _context.Dispose();
-            GC.SuppressFinalize(this);
         }
     }
 }
